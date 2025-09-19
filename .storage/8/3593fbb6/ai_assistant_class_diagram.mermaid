@@ -1,0 +1,188 @@
+classDiagram
+    class App {
+        +main() void
+        +initializeRouting() void
+        +setupAnalytics() void
+    }
+    
+    class HomePage {
+        +heroSection: HeroSection
+        +featuresGrid: FeaturesGrid
+        +testimonials: TestimonialSection
+        +ctaSection: CTASection
+        +render() JSX.Element
+    }
+    
+    class InteractiveDemoCenter {
+        +taskBoard: TaskBoardDemo
+        +notificationCustomizer: NotificationCustomizer
+        +streakTracker: StreakTracker
+        +studySessionSim: StudySessionSimulator
+        +switchDemo(demoType: string) void
+        +trackDemoUsage(demoId: string) void
+    }
+    
+    class TaskBoardDemo {
+        -tasks: Task[]
+        -categories: Category[]
+        +addTask(task: Task) void
+        +moveTask(taskId: string, categoryId: string) void
+        +updateTask(taskId: string, updates: Partial<Task>) void
+        +deleteTask(taskId: string) void
+        +exportDemoData() DemoData
+    }
+    
+    class Task {
+        +id: string
+        +title: string
+        +description: string
+        +dueDate: Date
+        +priority: Priority
+        +category: string
+        +completed: boolean
+        +createdAt: Date
+        +tags: string[]
+    }
+    
+    class Category {
+        +id: string
+        +name: string
+        +color: string
+        +icon: string
+        +taskCount: number
+    }
+    
+    class NotificationCustomizer {
+        -notificationStyles: NotificationStyle[]
+        -previewSettings: NotificationSettings
+        +updateStyle(styleType: string) void
+        +updateTone(tone: string) void
+        +updateFrequency(frequency: string) void
+        +generatePreview() NotificationPreview
+        +saveCustomization() void
+    }
+    
+    class NotificationStyle {
+        +id: string
+        +name: string
+        +template: string
+        +appearance: StyleConfig
+        +examples: string[]
+    }
+    
+    class NotificationSettings {
+        +style: string
+        +tone: string
+        +frequency: string
+        +platforms: string[]
+        +timePreferences: TimePreference[]
+    }
+    
+    class StreakTracker {
+        -streaks: Streak[]
+        -achievements: Achievement[]
+        +updateStreak(habitId: string) void
+        +calculateProgress() ProgressData
+        +unlockAchievement(achievementId: string) void
+        +getMotivationalMessage() string
+    }
+    
+    class Streak {
+        +id: string
+        +habitName: string
+        +currentStreak: number
+        +longestStreak: number
+        +lastUpdated: Date
+        +category: string
+    }
+    
+    class Achievement {
+        +id: string
+        +title: string
+        +description: string
+        +icon: string
+        +unlocked: boolean
+        +unlockedAt: Date
+        +requirements: AchievementRequirement[]
+    }
+    
+    class StudySessionSimulator {
+        -sessionData: StudySession
+        -timerState: TimerState
+        +startSession(duration: number) void
+        +pauseSession() void
+        +completeSession() void
+        +suggestBreakActivity() BreakActivity
+        +trackFocusMetrics() FocusMetrics
+    }
+    
+    class StudySession {
+        +id: string
+        +subject: string
+        +plannedDuration: number
+        +actualDuration: number
+        +breaks: Break[]
+        +focusScore: number
+        +completedAt: Date
+    }
+    
+    class ResponsiveLayout {
+        +breakpoints: Breakpoint[]
+        +currentBreakpoint: string
+        +isMobile() boolean
+        +isTablet() boolean
+        +isDesktop() boolean
+        +adaptLayout(component: Component) Component
+    }
+    
+    class ContentManager {
+        -content: ContentItem[]
+        +getContent(pageId: string) ContentItem[]
+        +updateContent(itemId: string, content: any) void
+        +validateContent(content: ContentItem) boolean
+        +cacheContent() void
+    }
+    
+    class AnalyticsManager {
+        +trackPageView(page: string) void
+        +trackEvent(event: string, properties: object) void
+        +trackDemoInteraction(demoId: string, action: string) void
+        +trackConversion(type: string) void
+        +generateReport() AnalyticsReport
+    }
+    
+    class PerformanceMonitor {
+        +measureLoadTime() number
+        +trackCoreWebVitals() WebVitals
+        +optimizeImages() void
+        +lazyLoadComponents() void
+        +reportPerformance() PerformanceReport
+    }
+    
+    App --> HomePage
+    App --> InteractiveDemoCenter
+    App --> ResponsiveLayout
+    App --> ContentManager
+    App --> AnalyticsManager
+    App --> PerformanceMonitor
+    
+    HomePage --> HeroSection
+    HomePage --> FeaturesGrid
+    HomePage --> TestimonialSection
+    HomePage --> CTASection
+    
+    InteractiveDemoCenter --> TaskBoardDemo
+    InteractiveDemoCenter --> NotificationCustomizer
+    InteractiveDemoCenter --> StreakTracker
+    InteractiveDemoCenter --> StudySessionSimulator
+    
+    TaskBoardDemo --> Task
+    TaskBoardDemo --> Category
+    
+    NotificationCustomizer --> NotificationStyle
+    NotificationCustomizer --> NotificationSettings
+    
+    StreakTracker --> Streak
+    StreakTracker --> Achievement
+    
+    StudySessionSimulator --> StudySession

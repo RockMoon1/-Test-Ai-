@@ -1,0 +1,111 @@
+sequenceDiagram
+    participant U as User
+    participant App as App
+    participant HP as HomePage
+    participant IDC as InteractiveDemoCenter
+    participant TBD as TaskBoardDemo
+    participant NC as NotificationCustomizer
+    participant ST as StreakTracker
+    participant SSS as StudySessionSimulator
+    participant AM as AnalyticsManager
+    participant CM as ContentManager
+    participant PM as PerformanceMonitor
+    
+    U->>App: Visit website
+    App->>PM: measureLoadTime()
+    App->>CM: getContent("homepage")
+    App->>AM: trackPageView("homepage")
+    App->>HP: render()
+    
+    HP->>CM: getContent("hero")
+    HP->>CM: getContent("features")
+    HP->>CM: getContent("testimonials")
+    HP-->>U: Display homepage
+    
+    U->>HP: Click "Try Interactive Demo"
+    HP->>AM: trackEvent("demo_clicked")
+    HP->>IDC: switchDemo("task-board")
+    
+    IDC->>TBD: initialize()
+    TBD->>TBD: loadSampleTasks()
+    TBD->>TBD: setupCategories()
+    TBD-->>IDC: Demo ready
+    IDC-->>U: Display task board demo
+    
+    U->>TBD: addTask(newTask)
+    TBD->>TBD: validateTask(newTask)
+    TBD->>TBD: updateTaskList()
+    TBD->>AM: trackDemoInteraction("task-board", "task_added")
+    TBD-->>U: Task added successfully
+    
+    U->>TBD: moveTask(taskId, categoryId)
+    TBD->>TBD: updateTaskCategory(taskId, categoryId)
+    TBD->>TBD: saveToLocalStorage()
+    TBD->>AM: trackDemoInteraction("task-board", "task_moved")
+    TBD-->>U: Task moved
+    
+    U->>IDC: switchDemo("notifications")
+    IDC->>NC: initialize()
+    NC->>NC: loadNotificationStyles()
+    NC->>NC: setupPreviewSettings()
+    NC-->>IDC: Notification customizer ready
+    IDC-->>U: Display notification customizer
+    
+    U->>NC: updateStyle("messaging")
+    NC->>NC: applyStyleChanges()
+    NC->>NC: generatePreview()
+    NC->>AM: trackDemoInteraction("notifications", "style_changed")
+    NC-->>U: Preview updated
+    
+    U->>NC: updateTone("encouraging")
+    NC->>NC: updatePreviewTone()
+    NC->>NC: generateSampleNotifications()
+    NC-->>U: Tone preview displayed
+    
+    U->>IDC: switchDemo("streak-tracker")
+    IDC->>ST: initialize()
+    ST->>ST: loadSampleStreaks()
+    ST->>ST: calculateProgress()
+    ST->>ST: checkAchievements()
+    ST-->>IDC: Streak tracker ready
+    IDC-->>U: Display streak tracker
+    
+    U->>ST: updateStreak("bible-study")
+    ST->>ST: incrementStreak("bible-study")
+    ST->>ST: unlockAchievement("consistent-reader")
+    ST->>ST: getMotivationalMessage()
+    ST->>AM: trackDemoInteraction("streak-tracker", "streak_updated")
+    ST-->>U: Streak updated with achievement
+    
+    U->>IDC: switchDemo("study-session")
+    IDC->>SSS: initialize()
+    SSS->>SSS: setupTimer()
+    SSS->>SSS: loadBreakActivities()
+    SSS-->>IDC: Study session simulator ready
+    IDC-->>U: Display study session simulator
+    
+    U->>SSS: startSession(25)
+    SSS->>SSS: initializeTimer(25)
+    SSS->>SSS: trackFocusMetrics()
+    SSS->>AM: trackDemoInteraction("study-session", "session_started")
+    SSS-->>U: Session started
+    
+    SSS->>SSS: timerComplete()
+    SSS->>SSS: suggestBreakActivity()
+    SSS->>SSS: calculateFocusScore()
+    SSS-->>U: Session complete, break suggested
+    
+    U->>HP: Click "Sign Up for Beta"
+    HP->>AM: trackConversion("beta_signup")
+    HP->>CM: getContent("signup_form")
+    HP-->>U: Display signup form
+    
+    U->>HP: Submit signup form
+    HP->>HP: validateFormData()
+    HP->>HP: saveToLocalStorage()
+    HP->>AM: trackConversion("beta_signup_completed")
+    HP-->>U: Signup successful
+    
+    App->>PM: trackCoreWebVitals()
+    App->>AM: generateReport()
+    PM->>PM: reportPerformance()
